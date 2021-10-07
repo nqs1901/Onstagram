@@ -38,10 +38,18 @@ const updatePost = catchAsync(async(req,res) =>{
     res.send(post);
 })
 
+const likePost = catchAsync(async(req,res) =>{
+    const post = await postService.likePost(req.params.id,req.user._id);
+    res.send(post);
+})
+
+
+
 module.exports = {
     createPost,
     getPosts,
     getPost,
     deletePost,
-    updatePost
+    updatePost,
+    likePost
 }

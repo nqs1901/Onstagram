@@ -1,7 +1,7 @@
 const httpStatus = require('http-status')
 
 const ApiError = require('../../utils/api-error')
-const { Post } = require('../models')
+const { Post, User } = require('../models')
 
 /**
  * Create a user
@@ -61,13 +61,30 @@ const createPost = async (postBody) => {
  * @returns {Promise<Post>}
  */
  const updatePostById = async (postId,userId,updateBody) => {
-  const post = await getPostById(postId);
-  if (!post || ! userId.equals(post.user)) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
-  }
-  Object.assign(post, updateBody);
-  await post.save();
-  return post;
+    const post = await getPostById(postId);
+    if (!post || ! userId.equals(post.user)) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
+    }
+    Object.assign(post, updateBody);
+    await post.save();
+    return post;
+};
+
+/**
+ * Like post
+ * @param {String} postId
+ * @param {ObjectId} userId
+ * @returns {Promise<Post>}
+ */
+const likePost = async (postId,userId) => {
+    const post = await getPostById(postId);
+    if (!post) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'post not found');
+    }
+    post.likes.some(u => {return u.equals(userId)}) 
+    ? postUpdate = await Post.findByIdAndUpdate({_id: postId}, {$pull: {likes: userId}}, {new: true})
+    : postUpdate = await Post.findByIdAndUpdate({_id: postId}, {$push: {likes: userId}}, {new: true});
+    return postUpdate;
 };
 
 
@@ -76,5 +93,6 @@ module.exports = {
     queryPosts,
     getPostById,
     deletePostById,
-    updatePostById
+    updatePostById,
+    likePost
 }

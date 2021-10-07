@@ -18,5 +18,7 @@ router
     .delete(auth(), validate(postValidation.deletePostSchema), postController.deletePost)
     .patch(auth(), validate(postValidation.updatePostSchema), postController.updatePost)
 
+router.patch('/like/:id',auth(), postController.likePost)
+
 module.exports = router
 
