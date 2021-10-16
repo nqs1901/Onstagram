@@ -87,6 +87,14 @@ const likePost = async (postId,userId) => {
     return postUpdate;
 };
 
+const addComment = async(postId, commentId) => {
+    return Post.findByIdAndUpdate({_id: postId}, {$push: {comments: commentId}});
+}
+
+const deleteComment = async(postId, commentId) => {
+  return Post.findByIdAndUpdate({_id: postId}, {$pull: {comments: commentId}});
+}
+
 
 module.exports = {
     createPost,
@@ -94,5 +102,7 @@ module.exports = {
     getPostById,
     deletePostById,
     updatePostById,
-    likePost
+    likePost,
+    addComment,
+    deleteComment
 }
