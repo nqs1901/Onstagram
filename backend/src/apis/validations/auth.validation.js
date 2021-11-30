@@ -2,6 +2,7 @@ const Joi = require('joi')
 
 const { password } = require('./customize.validation')
 
+
 const loginSchema = {
     body: Joi.object().keys({
         email: Joi.string().required(),
