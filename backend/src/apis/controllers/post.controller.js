@@ -14,7 +14,7 @@ const createPost = catchAsync(async (req,res) => {
 const getPosts = catchAsync(async (req,res) =>{
     const filter = pick(req.query, ['name', 'role']);
     const options = pick(req.query, ['sortBy', 'limit', 'page']);
-    const usersFollowing = {user: [...req.user.following]}
+    const usersFollowing = {user: [...req.user.followings]}
     const result = await postService.queryPosts(filter,options,usersFollowing);
     res.send(result);
 })

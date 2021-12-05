@@ -44,11 +44,27 @@ const updateUserById = async (userId, updateBody) => {
     Object.assign(user, updateBody);
     await user.save();
     return user;
+}   
+
+const followUser = async (userId, userFollowId) => {
+    const user = await getUserById(userId);
+    const userFollow = await getUserById(userFollowId);
+    if(!user || !userFollow){
+        throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+    } 
+
+    userFollow.followers.some(u => {return u.equals(userId)}) 
+    ? (userUpdate = await User.findByIdAndUpdate({_id: userId}, {$pull: {followings: userFollowId}}, {new: true}),
+        await User.findByIdAndUpdate({_id: userFollowId}, {$pull: {followers: userId}}, {new: true}))
+    : (userUpdate = await User.findByIdAndUpdate({_id: userId}, {$push: {followings: userFollowId}}, {new: true}),
+        await User.findByIdAndUpdate({_id: userFollowId}, {$push: {followers: userId}}, {new: true}))
+    return userUpdate;
 }
 
 module.exports = {
     createUser,
     getUserByEmail,
     getUserById,
-    updateUserById
+    updateUserById,
+    followUser
 }
