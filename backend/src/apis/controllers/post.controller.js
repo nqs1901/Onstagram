@@ -16,7 +16,7 @@ const getPosts = catchAsync(async (req,res) =>{
     const options = pick(req.query, ['sortBy', 'limit', 'page']);
     const usersFollowing = {user: [...req.user.followings]}
     const result = await postService.queryPosts(filter,options,usersFollowing);
-    res.send(result);
+    res.send({result});
 })
 
 const getPost = catchAsync(async (req,res) =>{
