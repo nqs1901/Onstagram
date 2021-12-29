@@ -7,17 +7,21 @@ import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
 // import DataProvider from './redux/store'
 import store, { history } from './store/configureStore';
+import { verifyToken } from './services/tokenService';
 
 const mountNode = document.getElementById('root');
+// Used to log in if token is valid
+store.dispatch(verifyToken());
+
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <App />
       </ConnectedRouter>
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
+  // </React.StrictMode>,
   mountNode
 );
 

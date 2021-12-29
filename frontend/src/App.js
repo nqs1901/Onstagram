@@ -6,29 +6,51 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
 import {getPosts} from './actions/postAction'
+import { GLOBALTYPES } from "./actions/globalTypes";
+import Peer from 'peerjs'
+import { verifyToken } from './services/tokenService';
+import { isAuthenticated } from './utils/jwtUtil';
 
 function App() {
   const { auth } = useSelector(state => state)
+  console.log("aauth",auth.isAuth);
   const dispatch = useDispatch()
-
   useEffect(() => {
-    if(auth.token) {
-      dispatch(getPosts())
+    // dispatch(refreshToken())
+    dispatch(verifyToken());
+
+
+    // const socket = io()
+    // dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
+    // return () => socket.close()
+  },[dispatch])
+  useEffect(() => {
+    if(isAuthenticated()) {
+      dispatch(getPosts(auth.token))
       // dispatch(getSuggestions(auth.token))
       // dispatch(getNotifies(auth.token))
     }
-  }, [dispatch, auth.token])
+  }, [dispatch,auth.token])
 
+
+  useEffect(() => {
+    const newPeer = new Peer(undefined, {
+      path: '/', secure: true
+    })
+    
+    dispatch({ type: GLOBALTYPES.PEER, payload: newPeer })
+  },[dispatch])
   return (
     <Router>
       <Alert />
       <input type="checkbox" id="theme" />
          <div className='App'>
         <div className="main">
-          {auth.token && <Header />}
-          <Route exact path="/" component={auth.token ? Home : Login} />
+          {isAuthenticated() && <Header />}
+          <Route exact path="/" component={isAuthenticated() ?Home:Login} />
+          {/* <Route exact path="/home" component={Home} /> */}
           
           <Route exact path="/register" component={Register} />
         </div>

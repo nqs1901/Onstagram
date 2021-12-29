@@ -6,3 +6,4 @@ export const HOST = `${APP_HOST}:${APP_PORT}/`;
 
 export const API_URL = `http://${HOST}${apiPath}`;
 export const JWT_TOKEN = 'token';
+export const REFRESH_TOKEN = 'refreshtoken';

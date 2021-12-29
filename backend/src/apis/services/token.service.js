@@ -56,13 +56,25 @@ const generateToken = (userId, expires, type, secret = env.passport.jwtToken) =>
  * @param {boolean} isBlackListed
  * @returns {Promise<Token>}
  */
-const getTokenByRefresh = async (refreshToken, isBlackListed) => {
-    const refreshTokenDoc = await Token.findOne({
-        token: refreshToken,
-        type: tokenTypes.REFRESH,
-        blacklisted: isBlackListed,
-    })
-    return refreshTokenDoc
+// const getTokenByRefresh = async (refreshToken, isBlackListed) => {
+//     const refreshTokenDoc = await Token.findOne({
+//         token: refreshToken,
+//         type: tokenTypes.REFRESH,
+//         blacklisted: isBlackListed,
+//     })
+//     return refreshTokenDoc
+// }
+
+const getTokenByRefresh = async (user) => {
+    const accessTokenExpires = moment().add(env.passport.jwtAccessExpired / 60, 'minutes')
+    const accessToken = generateToken(user.id, accessTokenExpires, tokenTypes.ACCESS)
+
+    return {
+        access: {
+            token: accessToken,
+            expires: accessTokenExpires.toDate(),
+        }
+    }
 }
 
 /**
@@ -93,7 +105,6 @@ const saveToken = async (token, userId, expires, type, blacklisted = false) => {
  */
 const verifyToken = async (token, type) => {
     const payload = jwt.verify(token, env.passport.jwtToken)
-    // console.log(payload)
     const tokenDoc = await Token.findOne({ token, type, user: payload.sub, blacklisted: false })
     if (!tokenDoc) {
         throw new Error('Token not found')
@@ -133,6 +144,7 @@ module.exports = {
     generateToken,
     saveToken,
     verifyToken,
+    getTokenByRefresh,
     generateAuthTokens,
     generateResetPasswordToken,
     generateVerifyEmailToken,

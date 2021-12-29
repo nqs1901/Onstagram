@@ -45,8 +45,10 @@ const logout = async (refreshToken) => {
       if (!user) {
         throw new Error();
       }
-      await refreshTokenDoc.remove();
-      return tokenService.generateAuthTokens(user);
+      // await refreshTokenDoc.remove();
+      // return tokenService.generateAuthTokens(user);
+      return tokenService.getTokenByRefresh(user);
+
     } catch (error) {
       throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
     }

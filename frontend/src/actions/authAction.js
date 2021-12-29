@@ -3,10 +3,11 @@ import { GLOBALTYPES } from './globalTypes'
 export const loginSuccess = (data) => {
     return {
         type: GLOBALTYPES.AUTH,
-        payload: {
-            token: data.tokens.access.token,
-            user: data.user
-        } 
+        // payload: {
+        //     token: data.tokens.access.token,
+        //     user: data.user
+        // } 
+        data
     };
 };
 

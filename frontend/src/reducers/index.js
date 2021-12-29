@@ -6,13 +6,15 @@ import {reducer as formReducer} from 'redux-form';
 import authReducer from './authReducer';
 import alertReducer from './alertReducer';
 import postReducer from './postReducer'
+import peerReducer from './peerReducer';
 
 const appReducer = (history) => combineReducers({
     router: connectRouter(history),
     form: formReducer,  // ← redux-form
     auth: authReducer,
     alert: alertReducer,
-    homePosts: postReducer
+    homePosts: postReducer,
+    peer: peerReducer
 });
 
 const rootReducer = (state, action) => {

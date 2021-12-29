@@ -24,6 +24,7 @@ const createPost = async (postBody) => {
  const queryPosts = async (filter, options, usersFollowing) => {
     const posts = await Post
                             .find(usersFollowing)
+                            .populate('user', 'avatar')
                             .sort('createdAt')
                             .exec(Post.paginate(filter, options));
     return posts;
