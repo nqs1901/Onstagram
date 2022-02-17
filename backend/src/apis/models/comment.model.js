@@ -35,6 +35,6 @@ commentSchema.plugin(paginate);
  * @typedef Comment
  */
 
-const Comment = mongoose.model('Comment', commentSchema)
+const Comment = mongoose.model('comment', commentSchema)
 
 module.exports = Comment

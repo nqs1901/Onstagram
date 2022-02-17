@@ -1,15 +1,14 @@
 import { GLOBALTYPES } from './globalTypes'
 
 export const loginSuccess = (data) => {
-    return {
+    return ({
         type: GLOBALTYPES.AUTH,
-        // payload: {
-        //     token: data.tokens.access.token,
-        //     user: data.user
-        // } 
+        // token: data.tokens.access.token,
+        // user: data.user
         data
+        })
     };
-};
+
 
 export const loginFailure = (error) => {
     return {

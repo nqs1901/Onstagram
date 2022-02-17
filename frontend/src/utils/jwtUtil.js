@@ -7,6 +7,7 @@ export let isTokenExpired = (token) => {
   try {
     const decoded = jwtDecode(token);
     if (decoded.exp < Date.now() / 1000) {
+
       // Checking if token is expired.
       return true;
     }
@@ -17,10 +18,12 @@ export let isTokenExpired = (token) => {
   }
 };
 
-export let getToken = () => {
-  return getLocalStorage(JWT_TOKEN);
+// export let refreshToken()
+
+export let getToken = (token) => {
+  return getLocalStorage(token);
 };
 
 export let isAuthenticated = () => {
-  return !!getToken() && !isTokenExpired(getToken());
+  return !!getToken(JWT_TOKEN) && !isTokenExpired(getToken(JWT_TOKEN));
 };

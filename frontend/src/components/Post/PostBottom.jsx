@@ -2,7 +2,7 @@ import React from "react";
 import Like from "./Like";
 import Send from "../../img/send.svg";
 
-export default function PostBottom() {
+export default function PostBottom({post}) {
   return (
     <div className="card_footer">
       <div className="card_icon_menu">
@@ -25,11 +25,11 @@ export default function PostBottom() {
 
       <div className="d-flex justify-content-between">
         <h6 style={{ padding: "0 25px", cursor: "pointer" }}>
-          1 likes
+          {post.likes.length} likes
         </h6>
 
         <h6 style={{ padding: "0 25px", cursor: "pointer" }}>
-          2 comments
+          {post.comments.length} comments
         </h6>
       </div>
 

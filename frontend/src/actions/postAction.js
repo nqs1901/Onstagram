@@ -61,7 +61,6 @@ export const getPosts = () => async (dispatch)=>  {
                 payload: {...response.data, page: 1}
             });
             dispatch({ type: POST_TYPES.LOADING_POST, payload: false })
-            console.log("!23")
         })
         .catch((error) => {
             dispatch(commonAction.failure(error));

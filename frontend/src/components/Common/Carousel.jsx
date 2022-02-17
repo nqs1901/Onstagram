@@ -21,11 +21,12 @@ export default function Carousel({images,id}) {
                     images.map((img, index) => (
                         <div key={index} className={`carousel-item ${isActive(index)}`}>
                             {
-                                img.url.match(/video/i)
+                            
+                                img.match(/video/i)
                                 ? <video controls src={img.url} className="d-block w-100" alt={img.url}
                                 style={{filter: 'invert(0)'}} />
 
-                                : <img src={img.url} className="d-block w-100" alt={img.url}
+                                : <img src={img} className="d-block w-100" alt={img}
                                 style={{filter: 'invert(0)'}} />
                             }
                            

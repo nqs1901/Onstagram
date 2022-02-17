@@ -1,14 +1,14 @@
 import React from 'react'
 import Card from './Card'
 
-export default function Display() {
+export default function Display({comment, post}) {
     return (
         <div className="comment_display">
-        <Card  >
+        <Card comment={comment} post={post} commentId={comment._id} >
             <div className="pl-4">
                 
                     
-                        <Card
+                        {/* <Card
                        
                          />
                         <Card>
@@ -16,7 +16,7 @@ export default function Display() {
                         
                         />
                         </Card>
-              
+               */}
                 
 
       

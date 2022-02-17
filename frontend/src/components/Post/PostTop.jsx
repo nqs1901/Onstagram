@@ -1,4 +1,5 @@
 import React from "react";
+import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 
@@ -8,7 +9,7 @@ export default function PostTop({post}) {
   const { auth } = useSelector(state => state)
   const dispatch = useDispatch()
   const history = useHistory()
-
+  console.log("post",post)
   return (
     <div className="card_header">
       <div className="d-flex">
@@ -21,7 +22,7 @@ export default function PostTop({post}) {
             </div>
           </h6>
           <small className="text-muted">
-            19/07/2021
+          {moment(post.createdAt).fromNow()}
           </small>
         </div>
       </div>

@@ -15,19 +15,19 @@ import { isAuthenticated } from './utils/jwtUtil';
 
 function App() {
   const { auth } = useSelector(state => state)
-  console.log("aauth",auth.isAuth);
   const dispatch = useDispatch()
-  useEffect(() => {
-    // dispatch(refreshToken())
-    dispatch(verifyToken());
+  // useEffect(() => {
+  //   // dispatch(refreshToken())
+  //   dispatch(verifyToken());
 
 
-    // const socket = io()
-    // dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
-    // return () => socket.close()
-  },[dispatch])
+  //   // const socket = io()
+  //   // dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
+  //   // return () => socket.close()
+  // },[dispatch])
   useEffect(() => {
     if(isAuthenticated()) {
+      console.log("ok", auth)
       dispatch(getPosts(auth.token))
       // dispatch(getSuggestions(auth.token))
       // dispatch(getNotifies(auth.token))

@@ -6,8 +6,6 @@ import PostTop from './PostTop'
  import Input  from './Comment/Input'
 import Comment from './Comment/Comment'
 export default function Post({post}) {
-
-    console.log("post",post)
     return (
         <div className="card my-3"> 
             <PostTop post={post}/>

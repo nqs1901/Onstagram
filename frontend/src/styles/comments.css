@@ -22,12 +22,12 @@
 
 /* ---------- Comments ---------- */
 .comment_display{
-    padding: 10px 25px;
+    padding: 0px 10px 0px;
 }
 .comment_card .comment_content{
-    background: #eee;
-    padding: 7px;
-    border-radius: 10px;
+    /* background: #eee; */
+    /* padding-bottom: 0px; */
+    /* border-radius: 10px; */
     border-top-left-radius: 0;
     display: flex;
     justify-content: space-between;
@@ -58,4 +58,12 @@
     width: 100%;
     border: none;
     outline: none;
+}
+.content{
+    font-size: 15px;
+    font-weight: 300;
+}
+.seeall{
+    padding-left:20px ;
+    padding-bottom: 10px;
 }
